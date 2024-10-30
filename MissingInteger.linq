@@ -19,27 +19,21 @@ N is an integer within the range [1..100,000];
 each element of array A is an integer within the range [−1,000,000..1,000,000].
 */
 
-// Only got an 88% due to correctness ?
-
 solution(new [] {1, 3, 6, 4, 1, 2}).Dump();
 solution(new [] {1, 2, 3}).Dump();
 solution(new [] {-1, -3}).Dump();
 
 int solution(int[] values)
 {
-    var hashset = new HashSet<int>();
-    
-    foreach (var item in values)
+    var result = 1;
+
+    foreach (var item in values.OrderBy(p => p).Where(p => p > 0))
     {
-        if (item > 0)
-            hashset.Add(item);
+        if (item <= 0)
+            continue;
+        else if (item == result)
+            result++;
     }
-    
-    for (int i = 1; i < values.Length; i++)
-    {
-        if (!hashset.Contains(i))
-            return i;
-    }
-    
-    return values.Length + 1;
+
+    return result;
 }
